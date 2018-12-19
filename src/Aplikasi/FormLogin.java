@@ -36,7 +36,7 @@ public void Login(){
     try
 {
     String hasil ="0";
-    String sql = "Select count(*) as jml from login where username = '"+username.getText().trim()+"'"+"and password = '"+password.getText().trim()+"'";
+    String sql = "Select count(*) as jml from tblogin where username = '"+username.getText().trim()+"'"+"and password = '"+password.getText().trim()+"'";
         Statement stat = koneksi.createStatement();
         ResultSet set = stat.executeQuery(sql);
     set.next();

@@ -4,20 +4,73 @@
  * and open the template in the editor.
  */
 package Aplikasi;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Cab Priok
  */
 public class FormJadwal extends javax.swing.JFrame {
-
+private Connection con;
+private Statement stat;
+private ResultSet res;
     /**
      * Creates new form FormJadwal
      */
     public FormJadwal() {
         initComponents();
-    }
+        koneksi();  
+        tabel();
+        
+}   
+    
 
+    private void koneksi(){
+try {
+Class.forName("com.mysql.jdbc.Driver");
+con=DriverManager.getConnection("jdbc:mysql://localhost/bookinglapfutsal", "root", "");
+stat=con.createStatement();
+} catch (Exception e) {
+JOptionPane.showMessageDialog(null, e);
+}
+}
+    
+private void tabel(){
+DefaultTableModel tb= new DefaultTableModel();
+// Memberi nama pada setiap kolom tabel
+tb.addColumn("ID");
+tb.addColumn("Nama");
+tb.addColumn("Lapangan");
+tb.addColumn("Team");
+tb.addColumn("Tanggal");
+tb.addColumn("Jam");
+
+tabell.setModel(tb);
+try{
+// Mengambil data dari database
+res=stat.executeQuery("select * from data");
+
+while (res.next())
+{
+// Mengambil data dari database berdasarkan nama kolom pada tabel
+// Lalu di tampilkan ke dalam JTable
+tb.addRow(new Object[]{
+res.getString("id"),
+res.getDate("nama"),
+res.getDate("lapangan"),
+res.getDate("team"),
+res.getDate("tanggal"),
+res.getDate("jam"),        
+});
+}
+
+}catch (Exception e){
+}
+}   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +82,7 @@ public class FormJadwal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabell = new javax.swing.JTable();
         tbcari2 = new javax.swing.JButton();
         tbback2 = new javax.swing.JButton();
         tbclose2 = new javax.swing.JButton();
@@ -39,7 +92,7 @@ public class FormJadwal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("JADWAL BOOKING LAPANGAN");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabell.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,7 +103,7 @@ public class FormJadwal extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabell);
 
         tbcari2.setText("CARI");
         tbcari2.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +167,9 @@ public class FormJadwal extends javax.swing.JFrame {
 
     private void tbcari2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbcari2ActionPerformed
         // TODO add your handling code here:
+        
+        koneksi();
+        tabel();
     }//GEN-LAST:event_tbcari2ActionPerformed
 
     private void tbback2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbback2ActionPerformed
@@ -166,7 +222,7 @@ public class FormJadwal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabell;
     private javax.swing.JButton tbback2;
     private javax.swing.JButton tbcari2;
     private javax.swing.JButton tbclose2;

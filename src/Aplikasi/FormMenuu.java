@@ -120,7 +120,9 @@ public class FormMenuu extends javax.swing.JFrame {
 
     private void tbbookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbbookingActionPerformed
         // TODO add your handling code here:
-
+new Frame_booking_lapangan().setVisible(true);
+ dispose();
+    
     }//GEN-LAST:event_tbbookingActionPerformed
 
     private void tblogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblogoutActionPerformed
